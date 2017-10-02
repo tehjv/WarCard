@@ -48,8 +48,8 @@ public class Deck extends Stack<Card> {
 				} else if (j == 12) {
 					rank = Rank.King;
 				}
+				push(new Card(rank, suit));
 			}
-			push(new Card(rank, suit));
 
 		}
 	}
