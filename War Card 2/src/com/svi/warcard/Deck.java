@@ -6,7 +6,7 @@ import com.svi.warcard.Game.Rank;
 import com.svi.warcard.Game.Suit;
 
 public class Deck extends Stack<Card> {
-	Deck() {
+	public Deck() {
 		Suit suit = null;
 		Rank rank = null;
 
@@ -24,29 +24,29 @@ public class Deck extends Stack<Card> {
 				if (j == 0) {
 					rank = Rank.Ace;
 				} else if (j == 1) {
-					rank = Rank.Two;
-				} else if (j == 2) {
-					rank = Rank.Three;
-				} else if (j == 3) {
-					rank = Rank.Four;
-				} else if (j == 4) {
-					rank = Rank.Five;
-				} else if (j == 5) {
-					rank = Rank.Six;
-				} else if (j == 6) {
-					rank = Rank.Seven;
-				} else if (j == 7) {
-					rank = Rank.Eight;
-				} else if (j == 8) {
-					rank = Rank.Nine;
-				} else if (j == 9) {
-					rank = Rank.Ten;
-				} else if (j == 10) {
-					rank = Rank.Jack;
-				} else if (j == 11) {
-					rank = Rank.Queen;
-				} else if (j == 12) {
 					rank = Rank.King;
+				} else if (j == 2) {
+					rank = Rank.Queen;
+				} else if (j == 3) {
+					rank = Rank.Jack;
+				} else if (j == 4) {
+					rank = Rank.Ten;
+				} else if (j == 5) {
+					rank = Rank.Nine;
+				} else if (j == 6) {
+					rank = Rank.Eight;
+				} else if (j == 7) {
+					rank = Rank.Seven;
+				} else if (j == 8) {
+					rank = Rank.Six;
+				} else if (j == 9) {
+					rank = Rank.Five;
+				} else if (j == 10) {
+					rank = Rank.Four;
+				} else if (j == 11) {
+					rank = Rank.Three;
+				} else if (j == 12) {
+					rank = Rank.Two;
 				}
 				push(new Card(rank, suit));
 			}

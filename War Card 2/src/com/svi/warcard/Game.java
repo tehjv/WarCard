@@ -38,7 +38,7 @@ public class Game {
 		System.out.println("Please enter number of Players: ");
 		Scanner sc = new Scanner(System.in);
 		int playerNumber = 0;
-		int numberOfCuts = 0;
+		int numberOfShuffle = 0;
 		playerNumber = sc.nextInt();
 		while (playerNumber > 52 || playerNumber < 2) {
 			System.out.println("Please only enter a value from 2 to 52");
@@ -49,52 +49,47 @@ public class Game {
 			addPlayer(new Player(x));
 
 		}
-		System.out.println("Please enter number of Cuts: ");
-		numberOfCuts = sc.nextInt();
-		while (numberOfCuts > 52 || numberOfCuts < 1) {
-			System.out.println("Please only enter a value from 1 to 52");
-			numberOfCuts = sc.nextInt();
+		System.out.println("Please enter number of Shuffle: ");
+		numberOfShuffle = sc.nextInt();
+		while (numberOfShuffle < 1) {
+			System.out.println("Please only enter a value greater than 0");
+			numberOfShuffle = sc.nextInt();
 		}
 		sc.close();
 		deck = new Deck();
 		System.out.println(getDeck().toString());
 
-		shuffle(numberOfCuts);
+		shuffle(numberOfShuffle);
 		System.out.println("\n");
 		System.out.println(getDeck().toString());
 
 	}
 
-	private void shuffle(int numberOfCuts) {
-		ArrayList<Stack<Card>> stacks = new ArrayList<Stack<Card>>();
-		// Stack<Card> tempDeck = new Stack<Card>();
-
-		// creates cuts stacks
-		for (int i = 0; i < numberOfCuts; i++) {
-			stacks.add(new Stack<Card>());
-		}
-		// distributes cards to cuts
-		for (int j = 0; j < deck.size();) {
-			for (int k = 0; k < numberOfCuts; k++) {
-				stacks.get(k).push(deck.pop());
-			}
+	private void shuffle(int numberOfShuffle) {
+		for(int i=0;i<numberOfShuffle;i++){
+			basicShuffle(deck);
 		}
 
-		// testing
-		// for(int l=0; l<stacks.size();l++){
-		// for(m=0;m<stacks.get(l).size();m++){
-		// stacks.get(l).get(m)
-		// }
-		// }
-		//
+	}
+	
+	private void basicShuffle(Deck deck) {
+		ArrayList<Card> deckCut1 = new ArrayList<Card>();
+		ArrayList<Card> deckCut2 = new ArrayList<Card>();
+		int cardsInDeck = deck.size();
 
-		// stack them up together to deck
-		while (stacks != null) {
-			for (int l = 0; l < stacks.size(); l++) {
-				if (stacks.get(l) != null) {
-					deck.push(stacks.get(l).pop());
-				}
-			}
+		for (int i = 0; i < (cardsInDeck / 2); i++) {
+			deckCut1.add(deck.pop());
+		}
+		for (int i = 0; i < (cardsInDeck / 2); i++) {
+			deckCut2.add(deck.pop());
+		}
+		for (int i = 0; i < (cardsInDeck / 2); i++) {
+			deck.push(deckCut2.get(deckCut2.size() - 1));
+			deckCut2.remove(deckCut2.size() - 1);
+			deck.push(deckCut1.get(deckCut1.size() - 1));
+			deckCut1.remove(deckCut1.size() - 1);
+			
+
 		}
 
 	}
