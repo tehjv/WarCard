@@ -1,20 +1,20 @@
 package com.svi.warcard;
 
-import java.util.Stack;
+import java.util.ArrayList;
 
 public class Player {
 	private int id;
-	Stack<Card>playerCards=new Stack<Card>();
+	ArrayList<Card> playerCards = new ArrayList<Card>();
 
-	Player(int id) {
+	public Player(int id) {
 		this.id = id;
 	}
 
-	public Stack<Card> getPlayerCards() {
+	public ArrayList<Card> getPlayerCards() {
 		return playerCards;
 	}
 
-	public void setPlayerCards(Stack<Card> playerCards) {
+	public void setPlayerCards(ArrayList<Card> playerCards) {
 		this.playerCards = playerCards;
 	}
 
@@ -25,10 +25,10 @@ public class Player {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	@Override
-	public String toString(){
-		return ""+ id + " ";
+	public String toString() {
+		return "" + id + " ";
 	}
 
 }

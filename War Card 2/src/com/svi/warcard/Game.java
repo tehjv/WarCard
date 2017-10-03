@@ -2,12 +2,21 @@ package com.svi.warcard;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Stack;
 
 public class Game {
 
 	public enum Suit {
-		HEARTS, DIAMONDS, SPADES, CLUBS
+		HEARTS(3), DIAMONDS(4), SPADES(2), CLUBS(1);
+
+		private int value;
+
+		Suit(int value) {
+			this.value = value;
+		}
+
+		public int getValue() {
+			return value;
+		}
 	};
 
 	public enum Rank {
@@ -28,6 +37,7 @@ public class Game {
 	// Fields
 	Deck deck;
 	private ArrayList<Player> players = new ArrayList<Player>();
+	int endFlag = 4;
 
 	// Constructor
 	Game() {
@@ -80,18 +90,74 @@ public class Game {
 		dealCards();
 
 		// display player cards
+		System.out.println("\nPLAYER CARDS BEFORE THE ROUNDS START");
+		System.out.println("-----------------------------------------");
 		displayPlayerCards();
+
+		// battles
+		int counter = 1;
+		while (endFlag != 1) {
+			
+			battle();
+			System.out.println("\nPLAYER CARDS AFTER ROUND " + counter);
+			System.out.println("-----------------------------------------");
+			displayPlayerCards();
+			counter++;
+		}
+	}
+
+	private void battle() {
+		ArrayList<Card> table = new ArrayList<Card>();
+
+		// placing cards on table
+		for (int i = 0; i < players.size(); i++) {
+			if (!players.get(i).getPlayerCards().contains(null)) {
+				table.add(players.get(i).getPlayerCards().get(0));
+			}
+			players.get(i).getPlayerCards().remove(0);
+		}
+
+		// comparing cards
+		int winner = 0;
+
+		for (int j = 1; j < table.size(); j++) {
+			if (compareCards(table.get(j), table.get(winner))) {
+				winner = j;
+			}
+		}
+
+		// collecting and adding cards to winner
+
+		for (int i = winner; i < table.size(); i++) {
+			players.get(winner).getPlayerCards().add(table.get(i));
+		}
+		for (int i = 0; i < winner; i++) {
+			players.get(winner).getPlayerCards().add(table.get(i));
+		}
+
+		// check for losers
+		endFlag = players.size();
+		for (int i = 0; i < players.size(); i++) {
+			if (players.get(i).getPlayerCards().contains(null)) {
+				endFlag--;
+			}
+		}
+
 	}
 
 	private void dealCards() {
-		int deckSize = deck.size();
-		for (int i = 0; i < deckSize;) {
+		for (int i = deck.size() - 1; i > -1;) {
 			for (int j = 0; j < players.size(); j++) {
-				if (!deck.empty()) {
-					players.get(j).getPlayerCards().push(deck.pop());
+				if (i > -1) {
+					if (j == 0) {
+						players.get(j).getPlayerCards().add(deck.get(i));
+					} else {
+						players.get(players.size() - j).getPlayerCards().add(deck.get(i));
+					}
 				}
-				i++;
+				i--;
 			}
+
 		}
 	}
 
@@ -113,17 +179,33 @@ public class Game {
 		ArrayList<Card> deckCut2 = new ArrayList<Card>();
 		int cardsInDeck = deck.size();
 
-		for (int i = 0; i < (cardsInDeck / 2); i++) {
-			deckCut1.add(deck.pop());
+		for (int i = 0; i < (deck.size() / 2); i++) {
+			deckCut1.add(deck.get(i));
 		}
-		for (int i = 0; i < (cardsInDeck / 2); i++) {
-			deckCut2.add(deck.pop());
+		for (int i = (deck.size() / 2); i < deck.size(); i++) {
+			deckCut2.add(deck.get(i));
 		}
+		deck.clear();
 		for (int i = 0; i < (cardsInDeck / 2); i++) {
-			deck.push(deckCut2.get(deckCut2.size() - 1));
-			deckCut2.remove(deckCut2.size() - 1);
-			deck.push(deckCut1.get(deckCut1.size() - 1));
-			deckCut1.remove(deckCut1.size() - 1);
+			deck.add(deckCut1.get(i));
+			deck.add(deckCut2.get(i));
+		}
+
+	}
+
+	private boolean compareCards(Card card1, Card card2) {
+		if (card1.getRank().getValue() > card2.getRank().getValue()) {
+			return true;
+		} else if (card1.getRank().getValue() < card2.getRank().getValue()) {
+			return false;
+		} else {
+			if (card1.getSuit().getValue() > card2.getSuit().getValue()) {
+				return true;
+			} else if (card1.getSuit().getValue() < card2.getSuit().getValue()) {
+				return false;
+			} else {
+				return true; // never happens (no same card)
+			}
 		}
 	}
 

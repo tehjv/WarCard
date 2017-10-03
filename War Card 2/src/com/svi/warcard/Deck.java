@@ -1,11 +1,10 @@
 package com.svi.warcard;
 
-import java.util.Stack;
-
+import java.util.ArrayList;
 import com.svi.warcard.Game.Rank;
 import com.svi.warcard.Game.Suit;
 
-public class Deck extends Stack<Card> {
+public class Deck extends ArrayList<Card> {
 	public Deck() {
 		Suit suit = null;
 		Rank rank = null;
@@ -48,7 +47,7 @@ public class Deck extends Stack<Card> {
 				} else if (j == 12) {
 					rank = Rank.Two;
 				}
-				push(new Card(rank, suit));
+				add(new Card(rank, suit));
 			}
 
 		}
