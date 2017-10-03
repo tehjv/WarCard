@@ -5,7 +5,6 @@ public class Test {
 		Game game = new Game();
 		
 		
-		
 	}
 
 }
