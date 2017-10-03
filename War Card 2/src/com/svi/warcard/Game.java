@@ -37,7 +37,6 @@ public class Game {
 	// Fields
 	Deck deck;
 	private ArrayList<Player> players = new ArrayList<Player>();
-	int endFlag = 4;
 
 	// Constructor
 	Game() {
@@ -47,9 +46,11 @@ public class Game {
 	private void start() {
 
 		// initializing user input storage
+
 		int playerNumber = 0;
 		int numberOfShuffle = 0;
-
+		int endFlag;
+		int originalDeckSize;
 		// welcome message
 		System.out.println("*****WELCOME TO WAR CARD*****\n\n");
 
@@ -66,6 +67,7 @@ public class Game {
 		for (int x = 1; x <= playerNumber; x++) {
 			addPlayer(new Player(x));
 		}
+		endFlag = players.size();
 
 		// input for number of shuffles
 		System.out.println("Please enter number of Shuffle: ");
@@ -79,6 +81,7 @@ public class Game {
 		// creating deck, shuffling deck as per number of shuffles and
 		// displaying deck
 		deck = new Deck();
+		originalDeckSize = deck.size();
 		System.out.println("\nInitial Deck:");
 		System.out.println(getDeck().toString());
 
@@ -97,12 +100,27 @@ public class Game {
 		// battles
 		int counter = 1;
 		while (endFlag != 1) {
-			
+
 			battle();
 			System.out.println("\nPLAYER CARDS AFTER ROUND " + counter);
 			System.out.println("-----------------------------------------");
 			displayPlayerCards();
 			counter++;
+
+			endFlag = players.size();
+			for (int i = 0; i < players.size(); i++) {
+				if (players.get(i).getPlayerCards().size() == 0) {
+					endFlag--;
+				}
+			}
+		}
+
+		// declare winner
+		for (int i = 0; i < players.size(); i++) {
+			if (players.get(i).getPlayerCards().size() == originalDeckSize) {
+				System.out.println("\n-----------------------------------------");
+				System.out.println("PLAYER " + players.get(i).getId() + " WON THE GAME!");
+			}
 		}
 	}
 
@@ -111,10 +129,11 @@ public class Game {
 
 		// placing cards on table
 		for (int i = 0; i < players.size(); i++) {
-			if (!players.get(i).getPlayerCards().contains(null)) {
+			if (players.get(i).getPlayerCards().size() != 0) {
 				table.add(players.get(i).getPlayerCards().get(0));
+
+				players.get(i).getPlayerCards().remove(0);
 			}
-			players.get(i).getPlayerCards().remove(0);
 		}
 
 		// comparing cards
@@ -133,14 +152,6 @@ public class Game {
 		}
 		for (int i = 0; i < winner; i++) {
 			players.get(winner).getPlayerCards().add(table.get(i));
-		}
-
-		// check for losers
-		endFlag = players.size();
-		for (int i = 0; i < players.size(); i++) {
-			if (players.get(i).getPlayerCards().contains(null)) {
-				endFlag--;
-			}
 		}
 
 	}
