@@ -78,13 +78,13 @@ public class Game {
 		}
 		sc.close();
 
-		// creating deck, shuffling deck as per number of shuffles and
-		// displaying deck
+		// creating deck and displaying deck
 		deck = new Deck();
 		originalDeckSize = deck.size();
 		System.out.println("\nInitial Deck:");
 		System.out.println(getDeck().toString());
-
+		
+		//shuffling deck and displaying shuffled deck
 		shuffle(numberOfShuffle);
 		System.out.println("\nShuffled Deck:");
 		System.out.println(getDeck().toString());
@@ -146,7 +146,6 @@ public class Game {
 		}
 
 		// collecting and adding cards to winner
-
 		for (int i = winner; i < table.size(); i++) {
 			players.get(winner).getPlayerCards().add(table.get(i));
 		}
