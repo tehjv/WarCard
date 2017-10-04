@@ -32,6 +32,7 @@ public class Card {
 	public String toString() {
 		String a = "";
 		char b = ' ';
+		
 		switch (rank) {
 		case Ace:
 			a = "A";
@@ -74,8 +75,8 @@ public class Card {
 			break;
 		default:
 			break;
-
 		}
+
 		switch (suit) {
 		case CLUBS:
 			b = 'C';
@@ -89,10 +90,10 @@ public class Card {
 		case SPADES:
 			b = 'S';
 			break;
-		default: 
+		default:
 			break;
-
 		}
+		
 		return b + "-" + a;
 	}
 

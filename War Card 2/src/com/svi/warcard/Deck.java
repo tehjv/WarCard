@@ -5,6 +5,11 @@ import com.svi.warcard.Game.Rank;
 import com.svi.warcard.Game.Suit;
 
 public class Deck extends ArrayList<Card> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Deck() {
 		Suit suit = null;
 		Rank rank = null;
@@ -49,7 +54,6 @@ public class Deck extends ArrayList<Card> {
 				}
 				add(new Card(rank, suit));
 			}
-
 		}
 	}
 }

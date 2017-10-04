@@ -40,17 +40,15 @@ public class Game {
 
 	// Constructor
 	Game() {
-		start();
+
 	}
 
-	private void start() {
-
+	public void start() {
 		// initializing user input storage
-
 		int playerNumber = 0;
 		int numberOfShuffle = 0;
 		int endFlag;
-		int originalDeckSize;
+
 		// welcome message
 		System.out.println("*****WELCOME TO WAR CARD*****\n\n");
 
@@ -80,11 +78,10 @@ public class Game {
 
 		// creating deck and displaying deck
 		deck = new Deck();
-		originalDeckSize = deck.size();
 		System.out.println("\nInitial Deck:");
 		System.out.println(getDeck().toString());
-		
-		//shuffling deck and displaying shuffled deck
+
+		// shuffling deck and displaying shuffled deck
 		shuffle(numberOfShuffle);
 		System.out.println("\nShuffled Deck:");
 		System.out.println(getDeck().toString());
@@ -114,10 +111,13 @@ public class Game {
 				}
 			}
 		}
+		end();
+	}
 
+	private void end() {
 		// declare winner
 		for (int i = 0; i < players.size(); i++) {
-			if (players.get(i).getPlayerCards().size() == originalDeckSize) {
+			if (players.get(i).getPlayerCards().size() != 0) {
 				System.out.println("\n-----------------------------------------");
 				System.out.println("PLAYER " + players.get(i).getId() + " WON THE GAME!");
 			}
