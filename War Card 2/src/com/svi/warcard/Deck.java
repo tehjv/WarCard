@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import com.svi.warcard.Game.Rank;
 import com.svi.warcard.Game.Suit;
 
+@SuppressWarnings("serial")
 public class Deck extends ArrayList<Card> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	public Deck() {
 		Suit suit = null;

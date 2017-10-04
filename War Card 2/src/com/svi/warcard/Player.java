@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Player {
 	private int id;
-	ArrayList<Card> playerCards = new ArrayList<Card>();
+	private ArrayList<Card> playerCards = new ArrayList<Card>();
 
 	public Player(int id) {
 		this.id = id;

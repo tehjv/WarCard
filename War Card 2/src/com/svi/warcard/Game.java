@@ -35,15 +35,15 @@ public class Game {
 	};
 
 	// Fields
-	Deck deck;
+	private Deck deck;
 	private ArrayList<Player> players = new ArrayList<Player>();
 
 	// Constructor
-	Game() {
+	public Game() {
 
 	}
 
-	public void start() {
+	public void startGame() {
 		// initializing user input storage
 		int playerNumber = 0;
 		int numberOfShuffle = 0;
@@ -77,12 +77,12 @@ public class Game {
 		sc.close();
 
 		// creating deck and displaying deck
-		deck = new Deck();
+		setDeck(new Deck());
 		System.out.println("\nInitial Deck:");
 		System.out.println(getDeck().toString());
 
 		// shuffling deck and displaying shuffled deck
-		shuffle(numberOfShuffle);
+		shuffleRepeatedly(numberOfShuffle);
 		System.out.println("\nShuffled Deck:");
 		System.out.println(getDeck().toString());
 
@@ -98,7 +98,7 @@ public class Game {
 		int counter = 1;
 		while (endFlag != 1) {
 
-			battle();
+			beginRound();
 			System.out.println("\nPLAYER CARDS AFTER ROUND " + counter);
 			System.out.println("-----------------------------------------");
 			displayPlayerCards();
@@ -111,10 +111,10 @@ public class Game {
 				}
 			}
 		}
-		end();
+		endGame();
 	}
 
-	private void end() {
+	private void endGame() {
 		// declare winner
 		for (int i = 0; i < players.size(); i++) {
 			if (players.get(i).getPlayerCards().size() != 0) {
@@ -124,7 +124,7 @@ public class Game {
 		}
 	}
 
-	private void battle() {
+	private void beginRound() {
 		ArrayList<Card> table = new ArrayList<Card>();
 
 		// placing cards on table
@@ -155,14 +155,16 @@ public class Game {
 
 	}
 
-	private void dealCards() {
+	public void dealCards() {
 		for (int i = deck.size() - 1; i > -1;) {
 			for (int j = 0; j < players.size(); j++) {
 				if (i > -1) {
 					if (j == 0) {
 						players.get(j).getPlayerCards().add(deck.get(i));
+						deck.remove(i);
 					} else {
 						players.get(players.size() - j).getPlayerCards().add(deck.get(i));
+						deck.remove(i);
 					}
 				}
 				i--;
@@ -171,20 +173,20 @@ public class Game {
 		}
 	}
 
-	private void displayPlayerCards() {
+	public void displayPlayerCards() {
 		for (int i = 0; i < players.size(); i++) {
 			System.out.println("\nPlayer " + players.get(i).getId() + "'s cards:");
 			System.out.println(players.get(i).getPlayerCards().toString());
 		}
 	}
 
-	private void shuffle(int numberOfShuffle) {
+	public void shuffleRepeatedly(int numberOfShuffle) {
 		for (int i = 0; i < numberOfShuffle; i++) {
-			basicShuffle(deck);
+			shuffleOnce(deck);
 		}
 	}
 
-	private void basicShuffle(Deck deck) {
+	public void shuffleOnce(Deck deck) {
 		ArrayList<Card> deckCut1 = new ArrayList<Card>();
 		ArrayList<Card> deckCut2 = new ArrayList<Card>();
 		int cardsInDeck = deck.size();
@@ -203,7 +205,7 @@ public class Game {
 
 	}
 
-	private boolean compareCards(Card card1, Card card2) {
+	public boolean compareCards(Card card1, Card card2) {
 		if (card1.getRank().getValue() > card2.getRank().getValue()) {
 			return true;
 		} else if (card1.getRank().getValue() < card2.getRank().getValue()) {
@@ -214,12 +216,12 @@ public class Game {
 			} else if (card1.getSuit().getValue() < card2.getSuit().getValue()) {
 				return false;
 			} else {
-				return true; // never happens (no same card)
+				return true; //this condition won't take effect since there are no duplicate cards
 			}
 		}
 	}
 
-	private void addPlayer(Player player) {
+	public void addPlayer(Player player) {
 		players.add(player);
 	}
 

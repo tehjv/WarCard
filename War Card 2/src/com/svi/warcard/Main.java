@@ -1,9 +1,8 @@
 package com.svi.warcard;
 
 public class Main {
-	public static void main(String[] args) {
-		//create instance of game and start application
+	public static void main(String[] args) {		
 		Game game = new Game();
-		game.start();
+		game.startGame();
 	}
 }
