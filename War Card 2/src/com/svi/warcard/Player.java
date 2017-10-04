@@ -2,27 +2,28 @@ package com.svi.warcard;
 
 import java.util.ArrayList;
 
-public class Player {
+@SuppressWarnings("serial")
+public class Player extends ArrayList<Card> {
 	private int id;
-	private ArrayList<Card> playerCards = new ArrayList<Card>();
-
+	private int initialNumberOfCards;
+	
 	public Player(int id) {
-		this.id = id;
+		setID(id);
 	}
 
-	public ArrayList<Card> getPlayerCards() {
-		return playerCards;
-	}
-
-	public void setPlayerCards(ArrayList<Card> playerCards) {
-		this.playerCards = playerCards;
-	}
-
-	public int getId() {
+	public int getID() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setID(int id) {
 		this.id = id;
+	}
+
+	public int getInitialNumberOfCards() {
+		return initialNumberOfCards;
+	}
+
+	public void setInitialNumberOfCards(int initialNumberOfCards) {
+		this.initialNumberOfCards = initialNumberOfCards;
 	}
 }

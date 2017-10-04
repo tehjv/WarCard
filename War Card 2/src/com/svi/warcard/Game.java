@@ -94,7 +94,7 @@ public class Game {
 		System.out.println("-----------------------------------------");
 		displayPlayerCards();
 
-		// battles
+		// rounds processing
 		int counter = 1;
 		while (endFlag != 1) {
 
@@ -104,9 +104,10 @@ public class Game {
 			displayPlayerCards();
 			counter++;
 
+			//checking if only 1 player has cards
 			endFlag = players.size();
 			for (int i = 0; i < players.size(); i++) {
-				if (players.get(i).getPlayerCards().size() == 0) {
+				if (players.get(i).size() == 0) {
 					endFlag--;
 				}
 			}
@@ -117,57 +118,36 @@ public class Game {
 	private void endGame() {
 		// declare winner
 		for (int i = 0; i < players.size(); i++) {
-			if (players.get(i).getPlayerCards().size() != 0) {
+			if (players.get(i).size() != 0) {
 				System.out.println("\n-----------------------------------------");
-				System.out.println("PLAYER " + players.get(i).getId() + " WON THE GAME!");
+				System.out.println("PLAYER " + players.get(i).getID() + " WON THE GAME!");
 			}
 		}
 	}
 
 	private void beginRound() {
-		ArrayList<Card> table = new ArrayList<Card>();
+		Table table = new Table();
 
 		// placing cards on table
-		for (int i = 0; i < players.size(); i++) {
-			if (players.get(i).getPlayerCards().size() != 0) {
-				table.add(players.get(i).getPlayerCards().get(0));
-
-				players.get(i).getPlayerCards().remove(0);
-			}
-		}
+		table.takeCards(players);
 
 		// comparing cards
-		int winner = 0;
-
-		for (int j = 1; j < table.size(); j++) {
-			if (compareCards(table.get(j), table.get(winner))) {
-				winner = j;
-			}
-		}
+		int winner = table.findRoundWinner();		
 
 		// collecting and adding cards to winner
-		for (int i = winner; i < table.size(); i++) {
-			players.get(winner).getPlayerCards().add(table.get(i));
-		}
-		for (int i = 0; i < winner; i++) {
-			players.get(winner).getPlayerCards().add(table.get(i));
-		}
+		table.addSpoils(winner, players);
 
 	}
 
 	public void dealCards() {
-		for (int i = deck.size() - 1; i > -1;) {
-			for (int j = 0; j < players.size(); j++) {
-				if (i > -1) {
-					if (j == 0) {
-						players.get(j).getPlayerCards().add(deck.get(i));
-						deck.remove(i);
-					} else {
-						players.get(players.size() - j).getPlayerCards().add(deck.get(i));
-						deck.remove(i);
-					}
+		int initialDeckSize = deck.size();
+		for (int i = 0; i < initialDeckSize;) {
+			for (int j = 0; j < players.size(); j++) {				
+				if (deck.size() != 0) {					
+					players.get(j).add(0, deck.get(0));
+					deck.remove(0);				
 				}
-				i--;
+				i++;
 			}
 
 		}
@@ -175,8 +155,8 @@ public class Game {
 
 	public void displayPlayerCards() {
 		for (int i = 0; i < players.size(); i++) {
-			System.out.println("\nPlayer " + players.get(i).getId() + "'s cards:");
-			System.out.println(players.get(i).getPlayerCards().toString());
+			System.out.println("\nPlayer " + players.get(i).getID() + "'s cards:");
+			System.out.println(players.get(i).toString());
 		}
 	}
 
@@ -205,21 +185,7 @@ public class Game {
 
 	}
 
-	public boolean compareCards(Card card1, Card card2) {
-		if (card1.getRank().getValue() > card2.getRank().getValue()) {
-			return true;
-		} else if (card1.getRank().getValue() < card2.getRank().getValue()) {
-			return false;
-		} else {
-			if (card1.getSuit().getValue() > card2.getSuit().getValue()) {
-				return true;
-			} else if (card1.getSuit().getValue() < card2.getSuit().getValue()) {
-				return false;
-			} else {
-				return true; //this condition won't take effect since there are no duplicate cards
-			}
-		}
-	}
+	
 
 	public void addPlayer(Player player) {
 		players.add(player);

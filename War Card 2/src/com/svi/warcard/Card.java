@@ -35,7 +35,7 @@ public class Card {
 		
 		switch (rank) {
 		case Ace:
-			a = "A";
+			a = "Ace";
 			break;
 		case Eight:
 			a = "8";
