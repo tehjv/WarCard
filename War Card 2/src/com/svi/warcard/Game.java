@@ -132,7 +132,7 @@ public class Game {
 		table.takeCards(players);
 
 		// comparing cards
-		int winner = table.findRoundWinner();		
+		int winner = table.findRoundWinner(players);		
 
 		// collecting and adding cards to winner
 		table.addSpoils(winner, players);

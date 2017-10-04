@@ -4,19 +4,30 @@ import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class Table extends ArrayList<Card> {
+	ArrayList<Integer> competitors = new ArrayList<Integer>();
+	
 	public void takeCards(ArrayList<Player> players) {
-
+		
 		for (int i = 0; i < players.size(); i++) {
 			if (players.get(i).size() != 0) {
 				add(players.get(i).get(0));
 				players.get(i).remove(0);
+				competitors.add(i);
 			}
 		}
 	}
 
-	public int findRoundWinner() {
-		int winner = 0;
+	public ArrayList<Integer> getCompetitors() {
+		return competitors;
+	}
 
+	public void setCompetitors(ArrayList<Integer> competitors) {
+		this.competitors = competitors;
+	}
+
+	public int findRoundWinner(ArrayList<Player> players) {
+		int winner = 0;
+		
 		for (int j = 1; j < size(); j++) {
 			if (compareCards(get(j), get(winner))) {
 				winner = j;
@@ -26,11 +37,12 @@ public class Table extends ArrayList<Card> {
 	}
 	
 	public void addSpoils(int winner, ArrayList<Player> players){
+		
 		for (int i = winner; i < size(); i++) {
-			players.get(winner).add(get(i));
+			players.get(getCompetitors().get(winner)).add(get(i));
 		}
 		for (int i = 0; i < winner; i++) {
-			players.get(winner).add(get(i));
+			players.get(getCompetitors().get(winner)).add(get(i));
 		}
 	}
 
