@@ -4,9 +4,16 @@ import java.util.ArrayList;
 import com.svi.warcard.Game.Rank;
 import com.svi.warcard.Game.Suit;
 
+/**
+*   This class creates a Deck object which is just a collection of Card objects with 52 unique Cards.
+*/
+
 @SuppressWarnings("serial")
 public class Deck extends ArrayList<Card> {
-
+	
+	/**
+	*   Creates a deck object which is a collection of 52 unique cards starting from Ace of Diamonds to 2 of Clubs.
+	*/
 	public Deck() {
 		Suit suit = null;
 		Rank rank = null;

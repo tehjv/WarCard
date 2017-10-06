@@ -1,10 +1,22 @@
 package com.svi.warcard;
 
 import java.util.ArrayList;
+
+/**
+*   A description of your class goes here
+*/
+
+
 import java.util.Scanner;
 
-public class Game {
+/**
+*   This class handles the war card game and calls an instance of Table class when running through rounds.
+*/
 
+public class Game {
+	/**
+	*   List of possible Suit values.
+	*/
 	public enum Suit {
 		HEARTS(3), DIAMONDS(4), SPADES(2), CLUBS(1);
 
@@ -18,7 +30,10 @@ public class Game {
 			return value;
 		}
 	};
-
+	
+	/**
+	*   List of possible Rank values.
+	*/
 	public enum Rank {
 		Ace(14), Two(2), Three(3), Four(4), Five(5), Six(6), Seven(7), Eight(8), Nine(9), Ten(10), Jack(11), Queen(
 				12), King(13);
@@ -42,7 +57,10 @@ public class Game {
 	public Game() {
 
 	}
-
+	
+	/**
+	*   Starts the War Card game includes the welcome message, setting of number of players, number of shuffles, displaying deck, shuffling, displaying shuffled deck, dealing cards to players, displaying cards before rounds, displaying cards after rounds and detecting when to end the game.
+	*/
 	public void startGame() {
 		// initializing user input storage
 		int playerNumber = 0;
@@ -114,7 +132,10 @@ public class Game {
 		}
 		endGame();
 	}
-
+	
+	/**
+	*   Displays the winner.
+	*/
 	private void endGame() {
 		// declare winner
 		for (int i = 0; i < players.size(); i++) {
@@ -124,7 +145,10 @@ public class Game {
 			}
 		}
 	}
-
+	
+	/**
+	*   Handles the War Card rounds.
+	*/
 	private void beginRound() {
 		Table table = new Table();
 
@@ -138,7 +162,10 @@ public class Game {
 		table.addSpoils(winner, players);
 
 	}
-
+	
+	/**
+	*  Handles giving each player cards and takes the cards from the top of deck.
+	*/
 	public void dealCards() {
 		int initialDeckSize = deck.size();
 		for (int i = 0; i < initialDeckSize;) {
@@ -153,19 +180,28 @@ public class Game {
 		}
 	}
 
+	/**
+	*   Handles displaying the cards a player has.
+	*/
 	public void displayPlayerCards() {
 		for (int i = 0; i < players.size(); i++) {
 			System.out.println("\nPlayer " + players.get(i).getID() + "'s cards:");
 			System.out.println(players.get(i).toString());
 		}
 	}
-
+	
+	/**
+	*   Shuffles deck depending on how many times specified.
+	*/
 	public void shuffleRepeatedly(int numberOfShuffle) {
 		for (int i = 0; i < numberOfShuffle; i++) {
 			shuffleOnce(deck);
 		}
 	}
-
+	
+	/**
+	*   Handles shuffling the deck with a specific process that cuts the deck in half, takes card from bottom, starting with second half of deck.
+	*/
 	public void shuffleOnce(Deck deck) {
 		ArrayList<Card> deckCut1 = new ArrayList<Card>();
 		ArrayList<Card> deckCut2 = new ArrayList<Card>();
@@ -185,20 +221,30 @@ public class Game {
 
 	}
 
-	
-
+	/**
+	*   Adds a Player instance.
+	*/
 	public void addPlayer(Player player) {
 		players.add(player);
 	}
-
+	
+	/**
+	*   Gets collection of players.
+	*/
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
-
+	
+	/**
+	*   Gets deck which is a collection of 52 unique cards.
+	*/
 	public Deck getDeck() {
 		return deck;
 	}
 
+	/**
+	*  Sets the deck the War Card game will use.
+	*/
 	public void setDeck(Deck deck) {
 		this.deck = deck;
 	}

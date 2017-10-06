@@ -2,10 +2,18 @@ package com.svi.warcard;
 
 import java.util.ArrayList;
 
+/**
+*   A class that handles round processing for Game's instance.
+*/
+
+
 @SuppressWarnings("serial")
 public class Table extends ArrayList<Card> {
-	ArrayList<Integer> competitors = new ArrayList<Integer>();
+	ArrayList<Integer> competitors = new ArrayList<Integer>();	
 	
+	/**
+	*   Places top-most card from each player onto the table.
+	*/
 	public void takeCards(ArrayList<Player> players) {
 		
 		for (int i = 0; i < players.size(); i++) {
@@ -16,15 +24,17 @@ public class Table extends ArrayList<Card> {
 			}
 		}
 	}
-
+	
+	/**
+	*   Lists the players still competing.
+	*/
 	public ArrayList<Integer> getCompetitors() {
 		return competitors;
 	}
-
-	public void setCompetitors(ArrayList<Integer> competitors) {
-		this.competitors = competitors;
-	}
-
+		
+	/**
+	*   Finds winner of a round by comparing all cards.
+	*/
 	public int findRoundWinner(ArrayList<Player> players) {
 		int winner = 0;
 		
@@ -36,6 +46,9 @@ public class Table extends ArrayList<Card> {
 		return winner;
 	}
 	
+	/**
+	*   A class that handles adding cards on table to winner's deck/hand.
+	*/
 	public void addSpoils(int winner, ArrayList<Player> players){
 		
 		for (int i = winner; i < size(); i++) {
@@ -46,6 +59,9 @@ public class Table extends ArrayList<Card> {
 		}
 	}
 
+	/**
+	*   Used to compare 2 cards.
+	*/
 	public boolean compareCards(Card card1, Card card2) {
 		if (card1.getRank().getValue() > card2.getRank().getValue()) {
 			return true;

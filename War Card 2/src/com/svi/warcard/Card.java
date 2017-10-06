@@ -3,31 +3,53 @@ package com.svi.warcard;
 import com.svi.warcard.Game.Rank;
 import com.svi.warcard.Game.Suit;
 
+/**
+*   This class is used to create Card objects.
+*/
+
 public class Card {
 	private Rank rank;
 	private Suit suit;
-
+	
+	/**
+	*   Creates card object, sets rank and suit value.
+	*/
 	public Card(Rank rank, Suit suit) {
 		this.rank = rank;
 		this.suit = suit;
 	}
-
+	
+	/**
+	*   Gets card Rank.
+	*/
 	public Rank getRank() {
 		return rank;
 	}
 
+	/**
+	*   Sets card's Rank.
+	*/
 	public void setRank(Rank rank) {
 		this.rank = rank;
 	}
-
+	
+	/**
+	*  Gets card's Suit.
+	*/
 	public Suit getSuit() {
 		return suit;
 	}
-
+	
+	/**
+	*   Sets card's Suit.
+	*/
 	public void setSuit(Suit suit) {
 		this.suit = suit;
 	}
-
+	
+	/**
+	*   Overrides original function to print card properties in format: Suit initial - Rank initial
+	*/
 	@Override
 	public String toString() {
 		String a = "";
