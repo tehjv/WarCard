@@ -6,7 +6,6 @@ import java.util.ArrayList;
 *   This class creates a Player instance.
 */
 
-
 @SuppressWarnings("serial")
 public class Player extends ArrayList<Card> {
 	private int id;
